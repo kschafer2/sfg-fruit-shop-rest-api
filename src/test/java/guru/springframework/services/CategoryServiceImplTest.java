@@ -18,9 +18,9 @@ import static org.mockito.Mockito.when;
 
 public class CategoryServiceImplTest {
 
-    public static final Long ID = 1L;
-    public static final String NAME = "name";
-    CategoryService categoryService;
+    private static final Long ID = 1L;
+    private static final String NAME = "name";
+    private CategoryService categoryService;
 
     @Mock
     CategoryRepository categoryRepository;
@@ -29,14 +29,15 @@ public class CategoryServiceImplTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        categoryService =
-                new CategoryServiceImpl(new CategoryMapper(), categoryRepository);
+        categoryService = new CategoryServiceImpl(
+                        new CategoryMapper(), categoryRepository);
     }
 
     @Test
     public void getAllCategories() throws Exception {
         //given
-        List<Category> categories = Arrays.asList(new Category(), new Category());
+        List<Category> categories = Arrays.asList(
+                new Category(), new Category());
 
         when(categoryRepository.findAll()).thenReturn(categories);
 
