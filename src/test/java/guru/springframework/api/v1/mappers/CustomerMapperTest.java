@@ -8,21 +8,19 @@ import static org.junit.Assert.assertEquals;
 
 public class CustomerMapperTest {
 
-    public static final Long ID = 1L;
-    public static final String FIRST = "first";
-    public static final String LAST = "last";
-    CustomerMapper customerMapper = new CustomerMapper();
+    private static final String FIRST = "first";
+    private static final String LAST = "last";
+    private CustomerMapper customerMapper = new CustomerMapper();
 
     @Test
     public void toDtoTest() throws Exception {
         //given
-        Customer customer = new Customer(ID, FIRST, LAST);
+        Customer customer = new Customer(FIRST, LAST);
 
         //when
         CustomerDto customerDto = customerMapper.toDto(customer);
 
         //then
-        assertEquals(ID, customerDto.getId());
         assertEquals(FIRST, customerDto.getFirstName());
         assertEquals(LAST, customerDto.getLastName());
     }
@@ -30,13 +28,12 @@ public class CustomerMapperTest {
     @Test
     public void toDomainTest() throws Exception {
         //given
-        CustomerDto customerDto = new CustomerDto(ID, FIRST, LAST);
+        CustomerDto customerDto = new CustomerDto(FIRST, LAST);
 
         //when
         Customer customer = customerMapper.toDomain(customerDto);
 
         //then
-        assertEquals(ID, customer.getId());
         assertEquals(FIRST, customer.getFirstName());
         assertEquals(LAST, customer.getLastName());
     }

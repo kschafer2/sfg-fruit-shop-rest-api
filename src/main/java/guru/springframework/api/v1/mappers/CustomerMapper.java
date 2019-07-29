@@ -12,7 +12,6 @@ public class CustomerMapper implements Mapper<Customer, CustomerDto> {
         }
 
         return new CustomerDto(
-                customer.getId(),
                 customer.getFirstName(),
                 customer.getLastName()
         );
@@ -25,7 +24,6 @@ public class CustomerMapper implements Mapper<Customer, CustomerDto> {
         }
 
         return new Customer(
-                customerDto.getId(),
                 customerDto.getFirstName(),
                 customerDto.getLastName()
         );
