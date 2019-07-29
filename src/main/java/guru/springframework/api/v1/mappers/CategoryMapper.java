@@ -5,7 +5,7 @@ import guru.springframework.domain.Category;
 import org.springframework.stereotype.Component;
 
 @Component
-public class categoryMapper {
+public class CategoryMapper {
 
     public CategoryDTO map(Category category) {
         if(category == null) {

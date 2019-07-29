@@ -10,7 +10,7 @@ public class CategoryMapperTest {
 
     public static final String NAME = "name";
     public static final long ID = 1L;
-    categoryMapper categoryMapper = new categoryMapper();
+    CategoryMapper categoryMapper = new CategoryMapper();
 
     @Test
     public void categoryToCategoryDTO() {

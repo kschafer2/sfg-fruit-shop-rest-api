@@ -5,8 +5,8 @@ import guru.springframework.repositories.CategoryRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Component        //runs code on application startup
 public class Bootstrap implements CommandLineRunner {
@@ -20,14 +20,14 @@ public class Bootstrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        ArrayList<Category> categories =
-                new ArrayList<>(Arrays.asList(
-                        new Category("Fruits"),
-                        new Category("Dried"),
-                        new Category("Fresh"),
-                        new Category("Exotic"),
-                        new Category("Nuts")
-                ));
+        List<Category> categories;
+        categories = Arrays.asList(
+                new Category("Fruits"),
+                new Category("Dried"),
+                new Category("Fresh"),
+                new Category("Exotic"),
+                new Category("Nuts")
+        );
 
         for(Category category : categories) {
             categoryRepository.save(category);
