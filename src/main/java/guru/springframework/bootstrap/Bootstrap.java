@@ -19,7 +19,7 @@ public class Bootstrap implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        //load categories
         List<Category> categories;
         categories = Arrays.asList(
                 new Category("Fruits"),
