@@ -1,6 +1,7 @@
 package guru.springframework.api.v1.mappers;
 
-public interface Mapper<S, T> {
+public interface Mapper<DOMAIN, DTO> {
 
-    T map (S source);
+    DTO toDto(DOMAIN domain);
+    DOMAIN toDomain(DTO dto);
 }

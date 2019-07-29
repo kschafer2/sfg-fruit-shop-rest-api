@@ -1,7 +1,7 @@
 package guru.springframework.services;
 
 import guru.springframework.api.v1.mappers.CategoryMapper;
-import guru.springframework.api.v1.model.CategoryDTO;
+import guru.springframework.api.v1.model.CategoryDto;
 import guru.springframework.domain.Category;
 import guru.springframework.repositories.CategoryRepository;
 import org.junit.Before;
@@ -41,10 +41,10 @@ public class CategoryServiceImplTest {
         when(categoryRepository.findAll()).thenReturn(categories);
 
         //when
-        List<CategoryDTO> categoryDTOs = categoryService.getAllCategories();
+        List<CategoryDto> categoryDtos = categoryService.getAllCategories();
 
         //then
-        assertEquals(2, categoryDTOs.size());
+        assertEquals(2, categoryDtos.size());
     }
 
     @Test
@@ -55,7 +55,7 @@ public class CategoryServiceImplTest {
         when(categoryRepository.findByName(anyString())).thenReturn(category);
 
         //when
-        CategoryDTO categoryDTO = categoryService.getCategoryByName(NAME);
+        CategoryDto categoryDTO = categoryService.getCategoryByName(NAME);
 
         //then
         assertEquals(ID, categoryDTO.getId());

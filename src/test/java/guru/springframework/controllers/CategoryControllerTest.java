@@ -1,6 +1,6 @@
 package guru.springframework.controllers;
 
-import guru.springframework.api.v1.model.CategoryDTO;
+import guru.springframework.api.v1.model.CategoryDto;
 import guru.springframework.services.CategoryService;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,9 +43,9 @@ public class CategoryControllerTest {
 
     @Test
     public void listAllCategoriesTest() throws Exception {
-        CategoryDTO category1 = new CategoryDTO(1L, NAME);
-        CategoryDTO category2 = new CategoryDTO(2L, "Joe");
-        List<CategoryDTO> categories = Arrays.asList(category1, category2);
+        CategoryDto category1 = new CategoryDto(1L, NAME);
+        CategoryDto category2 = new CategoryDto(2L, "Joe");
+        List<CategoryDto> categories = Arrays.asList(category1, category2);
 
         when(categoryService.getAllCategories()).thenReturn(categories);
 
@@ -58,7 +58,7 @@ public class CategoryControllerTest {
 
     @Test
     public void getByNameCategoriesTest() throws Exception {
-        CategoryDTO category1 = new CategoryDTO(1L, NAME);
+        CategoryDto category1 = new CategoryDto(1L, NAME);
 
         when(categoryService.getCategoryByName(anyString())).thenReturn(category1);
 

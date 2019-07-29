@@ -1,7 +1,7 @@
 package guru.springframework.services;
 
 import guru.springframework.api.v1.mappers.CategoryMapper;
-import guru.springframework.api.v1.model.CategoryDTO;
+import guru.springframework.api.v1.model.CategoryDto;
 import guru.springframework.repositories.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +21,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDTO> getAllCategories() {
+    public List<CategoryDto> getAllCategories() {
         return categoryRepository
                 .findAll()
                 .stream()
-                .map(categoryMapper::map)
+                .map(categoryMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CategoryDTO getCategoryByName(String name) {
-        return categoryMapper.map(categoryRepository.findByName(name));
+    public CategoryDto getCategoryByName(String name) {
+        return categoryMapper.toDto(categoryRepository.findByName(name));
     }
 }

@@ -1,7 +1,7 @@
 package guru.springframework.controllers;
 
-import guru.springframework.api.v1.model.CategoryDTO;
-import guru.springframework.api.v1.model.CategoryListDTO;
+import guru.springframework.api.v1.model.CategoryDto;
+import guru.springframework.api.v1.model.CategoryListDto;
 import guru.springframework.services.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,15 +21,15 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<CategoryListDTO> getAllCategories() {
+    public ResponseEntity<CategoryListDto> getAllCategories() {
         return new ResponseEntity<>(
-                new CategoryListDTO(categoryService.getAllCategories()),
+                new CategoryListDto(categoryService.getAllCategories()),
                 HttpStatus.OK
         );
     }
 
     @GetMapping("{name}")
-    public ResponseEntity<CategoryDTO> getCategoryByName(@PathVariable String name) {
+    public ResponseEntity<CategoryDto> getCategoryByName(@PathVariable String name) {
         return new ResponseEntity<>(
                 categoryService.getCategoryByName(name),
                 HttpStatus.OK
