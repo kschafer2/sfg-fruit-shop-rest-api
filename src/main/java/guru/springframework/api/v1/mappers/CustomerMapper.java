@@ -15,7 +15,8 @@ public class CustomerMapper implements Mapper<Customer, CustomerDto> {
 
         return new CustomerDto(
                 customer.getFirstName(),
-                customer.getLastName()
+                customer.getLastName(),
+                "/api/v1/customers/" + customer.getId()
         );
     }
 
@@ -26,8 +27,17 @@ public class CustomerMapper implements Mapper<Customer, CustomerDto> {
         }
 
         return new Customer(
+                getIdFromUrl(customerDto.getCustomerUrl()),
                 customerDto.getFirstName(),
                 customerDto.getLastName()
         );
+    }
+
+    private Long getIdFromUrl(String customerUrl) {
+        if(customerUrl == null) {
+            return null;
+        }
+
+        return Long.valueOf(String.valueOf(customerUrl.charAt(customerUrl.length()-1)));
     }
 }
