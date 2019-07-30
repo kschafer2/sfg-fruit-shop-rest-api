@@ -2,7 +2,9 @@ package guru.springframework.api.v1.mappers;
 
 import guru.springframework.api.v1.model.CustomerDto;
 import guru.springframework.domain.Customer;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomerMapper implements Mapper<Customer, CustomerDto> {
 
     @Override
