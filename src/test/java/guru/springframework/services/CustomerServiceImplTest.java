@@ -84,7 +84,7 @@ public class CustomerServiceImplTest {
     }
 
     @Test
-    public void saveCustomerByDto() throws Exception {
+    public void overwriteCustomerTest() throws Exception {
         //given
         CustomerDto customerDto = new CustomerDto();
         customerDto.setFirstName("Jim");
@@ -97,7 +97,7 @@ public class CustomerServiceImplTest {
         when(customerRepository.save(any(Customer.class))).thenReturn(savedCustomer);
 
         //when
-        CustomerDto savedDto = customerService.saveCustomerByDto(ID, customerDto);
+        CustomerDto savedDto = customerService.overwriteCustomer(ID, customerDto);
 
         //then
         assertEquals(customerDto.getFirstName(), savedDto.getFirstName());

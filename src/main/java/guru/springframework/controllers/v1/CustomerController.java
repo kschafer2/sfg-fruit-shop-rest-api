@@ -51,10 +51,23 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id,
-                                                      @RequestBody CustomerDto customerDto) {
+    public ResponseEntity<CustomerDto> overwriteCustomer(@PathVariable Long id,
+                                                         @RequestBody CustomerDto customerDto) {
+        log.info("Overwriting Customer: " + id);
+
         return new ResponseEntity<>(
-                customerService.saveCustomerByDto(id, customerDto),
+                customerService.overwriteCustomer(id, customerDto),
+                HttpStatus.OK
+        );
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<CustomerDto> patchCustomer(@PathVariable Long id,
+                                                      @RequestBody CustomerDto customerDto) {
+        log.info("Patching Customer: " + id);
+
+        return new ResponseEntity<>(
+                customerService.patchCustomer(id, customerDto),
                 HttpStatus.OK
         );
     }

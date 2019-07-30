@@ -75,7 +75,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
     }
 
     @Test
-    public void createNewCustomer() throws Exception {
+    public void createNewCustomerTest() throws Exception {
         CustomerDto customer = new CustomerDto(FIRST, LAST);
         CustomerDto returnDto = new CustomerDto(customer.getFirstName(),
                                                 customer.getLastName(),
@@ -93,7 +93,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
     }
 
     @Test
-    public void updateCustomerTest() throws Exception {
+    public void overwriteCustomerTest() throws Exception {
         CustomerDto customer = new CustomerDto(FIRST, LAST);
         CustomerDto returnDto = new CustomerDto(
                                         customer.getFirstName(),
@@ -102,10 +102,34 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
         );
 
         when(customerService
-                .saveCustomerByDto(anyLong(), any(CustomerDto.class)))
+                .overwriteCustomer(anyLong(), any(CustomerDto.class)))
                 .thenReturn(returnDto);
 
         mockMvc.perform(put(CUSTOMER_URL_1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(customer)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(FIRST_JSON, equalTo(FIRST)))
+                .andExpect(jsonPath(LAST_JSON, equalTo(LAST)))
+                .andExpect(jsonPath(CUSTOMER_URL_JSON, equalTo(CUSTOMER_URL_1)));
+    }
+
+    @Test
+    public void patchCustomerTest() throws Exception {
+        CustomerDto customer = new CustomerDto();
+        customer.setFirstName(FIRST);
+
+        CustomerDto returnDto = new CustomerDto(
+                customer.getFirstName(),
+                LAST,
+                CUSTOMER_URL_1
+        );
+
+        when(customerService
+                .patchCustomer(anyLong(), any(CustomerDto.class)))
+                .thenReturn(returnDto);
+
+        mockMvc.perform(patch(CUSTOMER_URL_1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isOk())
