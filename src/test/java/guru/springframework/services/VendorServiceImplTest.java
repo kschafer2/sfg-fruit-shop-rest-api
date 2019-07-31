@@ -21,8 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class VendorServiceImplTest {
     private static final Long ID = 1L;
@@ -134,5 +133,12 @@ public class VendorServiceImplTest {
         then(vendorRepository).should().save(any(Vendor.class));
         then(vendorRepository).should().findById(anyLong());
         assertThat(savedDto.getVendorUrl(), containsString("1"));
+    }
+
+    @Test
+    public void deleteVendorByIdTest() throws Exception {
+        vendorRepository.deleteById(ID);
+
+        verify(vendorRepository, times(1)).deleteById(anyLong());
     }
 }

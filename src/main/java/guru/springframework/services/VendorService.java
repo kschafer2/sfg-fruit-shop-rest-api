@@ -15,4 +15,6 @@ public interface VendorService {
     VendorDto overwriteVendor(Long id, VendorDto vendorDto);
 
     VendorDto patchVendor(Long id, VendorDto vendorDto);
+
+    void deleteVendorById(Long id);
 }
