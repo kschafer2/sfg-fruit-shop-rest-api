@@ -18,10 +18,10 @@ import java.util.List;
 import static guru.springframework.controllers.v1.AbstractRestControllerTest.asJsonString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -91,5 +91,22 @@ public class VendorControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath(NAME_JSON, equalTo(NAME)))
                 .andExpect(jsonPath(VENDOR_URL_JSON, equalTo(VENDOR_URL_1)));
+    }
+
+    @Test
+    public void overwriteCustomerTest() throws Exception {
+        VendorDto vendor = new VendorDto(NAME);
+        VendorDto returnDto = new VendorDto(vendor.getName(), VENDOR_URL_1);
+
+        when(vendorService.overwriteVendor(anyLong(), any(VendorDto.class)))
+                .thenReturn(returnDto);
+
+        mockMvc.perform(put(VENDOR_URL_1)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(asJsonString(vendor)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(NAME_JSON, equalTo(NAME)))
+                .andExpect(jsonPath(VENDOR_URL_JSON, equalTo(VENDOR_URL_1)));
+
     }
 }

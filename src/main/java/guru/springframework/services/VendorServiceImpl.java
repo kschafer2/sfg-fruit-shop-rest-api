@@ -43,6 +43,13 @@ public class VendorServiceImpl implements VendorService {
         return saveAndReturnDto(vendorMapper.toDomain(vendorDto));
     }
 
+    @Override
+    public VendorDto overwriteVendor(Long id, VendorDto vendorDto) {
+        vendorDto.setVendorUrl(getVendorById(id).getVendorUrl());
+
+        return saveAndReturnDto(vendorMapper.toDomain(vendorDto));
+    }
+
     private VendorDto saveAndReturnDto(Vendor vendor) {
         return vendorMapper.toDto(vendorRepository.save(vendor));
     }

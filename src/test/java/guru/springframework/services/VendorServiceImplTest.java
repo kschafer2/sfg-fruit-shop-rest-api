@@ -81,4 +81,21 @@ public class VendorServiceImplTest {
         assertEquals(vendorDto.getName(), savedDto.getName());
         assertEquals(VENDOR_URL_1, savedDto.getVendorUrl());
     }
+
+    @Test
+    public void overwriteCustomerTest() throws Exception {
+        //given
+        VendorDto vendorDto = new VendorDto(NAME);
+        Vendor savedVendor = new Vendor(ID, vendorDto.getName());
+
+        when(vendorRepository.findById(anyLong())).thenReturn(Optional.of(savedVendor));
+        when(vendorRepository.save(any(Vendor.class))).thenReturn(savedVendor);
+
+        //when
+        VendorDto savedDto = vendorService.overwriteVendor(ID, vendorDto);
+
+        //then
+        assertEquals(vendorDto.getName(), savedDto.getName());
+        assertEquals(VENDOR_URL_1, savedDto.getVendorUrl());
+    }
 }

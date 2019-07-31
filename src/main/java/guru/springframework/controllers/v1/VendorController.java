@@ -41,4 +41,13 @@ public class VendorController {
 
         return vendorService.createNewVendor(vendorDto);
     }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public VendorDto overwriteVendor(@PathVariable Long id,
+                                     @RequestBody VendorDto vendorDto) {
+        log.info("Overwriting Vendor: " + id);
+
+        return vendorService.overwriteVendor(id, vendorDto);
+    }
 }
