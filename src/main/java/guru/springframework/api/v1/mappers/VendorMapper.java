@@ -2,7 +2,9 @@ package guru.springframework.api.v1.mappers;
 
 import guru.springframework.api.v1.model.VendorDto;
 import guru.springframework.domain.Vendor;
+import org.springframework.stereotype.Component;
 
+@Component
 public class VendorMapper extends UrlToIdMapper<Vendor, VendorDto> {
 
     @Override

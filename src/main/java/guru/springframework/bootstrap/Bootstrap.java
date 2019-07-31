@@ -2,8 +2,10 @@ package guru.springframework.bootstrap;
 
 import guru.springframework.domain.Category;
 import guru.springframework.domain.Customer;
+import guru.springframework.domain.Vendor;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.CustomerRepository;
+import guru.springframework.repositories.VendorRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,18 +17,22 @@ public class Bootstrap implements CommandLineRunner {
 
     private CategoryRepository categoryRepository;
     private CustomerRepository customerRepository;
+    private VendorRepository vendorRepository;
 
     public Bootstrap(CategoryRepository categoryRepository,
-                     CustomerRepository customerRepository) {
+                     CustomerRepository customerRepository,
+                     VendorRepository vendorRepository) {
+
         this.categoryRepository = categoryRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
     public void run(String... args) throws Exception {
         loadCategories();
         loadCustomers();
-
+        loadVendors();
     }
 
     private void loadCategories() {
@@ -59,5 +65,19 @@ public class Bootstrap implements CommandLineRunner {
         }
 
         System.out.println("Loaded Customer Count: " + customerRepository.count());
+    }
+
+    private void loadVendors() {
+        List<Vendor> vendors = Arrays.asList(
+                new Vendor("Amazing Berry Farms"),
+                new Vendor("Exotic Fruit Inc."),
+                new Vendor("Fresh Fruit Founders"),
+                new Vendor("Nutty Brothers Corp."),
+                new Vendor("Dried Fruit Mart")
+        );
+
+        vendors.forEach(vendorRepository::save);
+
+        System.out.println("Loaded Vendor Count: " + vendorRepository.count());
     }
 }

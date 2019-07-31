@@ -63,7 +63,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 
         when(customerService.getAllCustomers()).thenReturn(customers);
 
-        mockMvc.perform(get("/api/v1/customers")
+        mockMvc.perform(get(CUSTOMER_BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(CUSTOMERS_JSON, hasSize(2)));
