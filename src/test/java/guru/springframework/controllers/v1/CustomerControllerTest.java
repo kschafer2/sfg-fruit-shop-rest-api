@@ -1,6 +1,8 @@
 package guru.springframework.controllers.v1;
 
 import guru.springframework.api.v1.model.CustomerDto;
+import guru.springframework.controllers.RestResponseEntityExceptionHandler;
+import guru.springframework.exceptions.ResourceNotFoundException;
 import guru.springframework.services.CustomerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +31,11 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
     private static final String FIRST = "first";
     private static final String LAST = "last";
     private static final String CUSTOMER_URL_1 = "/api/v1/customers/1";
-    public static final String FIRST_JSON = "$.firstname";
-    public static final String CUSTOMER_URL_JSON = "$.customer_url";
-    public static final String LAST_JSON = "$.lastname";
-    public static final String CUSTOMERS_JSON = "$.customers";
+    private static final String FIRST_JSON = "$.firstname";
+    private static final String CUSTOMER_URL_JSON = "$.customer_url";
+    private static final String LAST_JSON = "$.lastname";
+    private static final String CUSTOMERS_JSON = "$.customers";
+    private static final String CUSTOMER_BASE_URL = "/api/v1/customers/";
 
     @Mock
     CustomerService customerService;
@@ -46,7 +49,10 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(customerController)
+                .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .build();
     }
 
     @Test
@@ -85,7 +91,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
 
         when(customerService.createNewCustomer(customer)).thenReturn(returnDto);
 
-        mockMvc.perform(post("/api/v1/customers/")
+        mockMvc.perform(post(CUSTOMER_BASE_URL)
         .contentType(MediaType.APPLICATION_JSON)
         .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
@@ -146,5 +152,14 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
                 .andExpect(status().isOk());
 
         verify(customerService).deleteCustomerById(anyLong());
+    }
+
+    @Test
+    public void notFoundExceptionTest() throws Exception {
+        when(customerService.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
+
+        mockMvc.perform(get(CUSTOMER_BASE_URL + "123")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

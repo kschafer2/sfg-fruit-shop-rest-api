@@ -3,6 +3,7 @@ package guru.springframework.services;
 import guru.springframework.api.v1.mappers.CustomerMapper;
 import guru.springframework.api.v1.model.CustomerDto;
 import guru.springframework.domain.Customer;
+import guru.springframework.exceptions.ResourceNotFoundException;
 import guru.springframework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository
                 .findById(id)
                 .map(customerMapper::toDto)
-                .orElseThrow(RuntimeException::new);
-                //todo implement better exception handling
+                .orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
@@ -64,8 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
             }
 
             return customerMapper.toDto(customerRepository.save(customer));
-        }).orElseThrow(RuntimeException::new);
-        //todo implement better exception handling
+        }).orElseThrow(ResourceNotFoundException::new);
     }
 
     @Override
