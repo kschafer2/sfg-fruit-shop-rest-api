@@ -23,6 +23,7 @@ public class CustomerServiceImplTest {
     private static final Long ID = 1L;
     private static final String FIRST = "first";
     private static final String LAST = "last";
+    private static final String CUSTOMER_URL_1 = "/api/v1/customers/1";
     private CustomerService customerService;
 
     @Mock
@@ -80,7 +81,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDto.getFirstName(), savedDto.getFirstName());
-        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
+        assertEquals(CUSTOMER_URL_1, savedDto.getCustomerUrl());
     }
 
     @Test
@@ -101,7 +102,7 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(customerDto.getFirstName(), savedDto.getFirstName());
-        assertEquals("/api/v1/customers/1", savedDto.getCustomerUrl());
+        assertEquals(CUSTOMER_URL_1, savedDto.getCustomerUrl());
     }
 
     @Test

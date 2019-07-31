@@ -33,4 +33,12 @@ public class VendorController {
 
         return vendorService.getVendorById(id);
     }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public VendorDto createNewVendor(@RequestBody VendorDto vendorDto) {
+        log.info("Creating Vendor " + vendorDto.getName());
+
+        return vendorService.createNewVendor(vendorDto);
+    }
 }

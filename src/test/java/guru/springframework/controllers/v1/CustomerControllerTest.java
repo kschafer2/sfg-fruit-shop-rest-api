@@ -92,8 +92,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
         when(customerService.createNewCustomer(customer)).thenReturn(returnDto);
 
         mockMvc.perform(post(CUSTOMER_BASE_URL)
-        .contentType(MediaType.APPLICATION_JSON)
-        .content(asJsonString(customer)))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath(FIRST_JSON, equalTo(FIRST)))
                 .andExpect(jsonPath(CUSTOMER_URL_JSON, equalTo(CUSTOMER_URL_1)));

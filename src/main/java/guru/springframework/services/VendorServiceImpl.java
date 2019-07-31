@@ -2,6 +2,7 @@ package guru.springframework.services;
 
 import guru.springframework.api.v1.mappers.VendorMapper;
 import guru.springframework.api.v1.model.VendorDto;
+import guru.springframework.domain.Vendor;
 import guru.springframework.exceptions.ResourceNotFoundException;
 import guru.springframework.repositories.VendorRepository;
 import org.springframework.stereotype.Service;
@@ -35,5 +36,14 @@ public class VendorServiceImpl implements VendorService {
                 .findById(id)
                 .map(vendorMapper::toDto)
                 .orElseThrow(ResourceNotFoundException::new);
+    }
+
+    @Override
+    public VendorDto createNewVendor(VendorDto vendorDto) {
+        return saveAndReturnDto(vendorMapper.toDomain(vendorDto));
+    }
+
+    private VendorDto saveAndReturnDto(Vendor vendor) {
+        return vendorMapper.toDto(vendorRepository.save(vendor));
     }
 }

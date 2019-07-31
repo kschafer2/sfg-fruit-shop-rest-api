@@ -14,12 +14,14 @@ import java.util.List;
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
 public class VendorServiceImplTest {
     private static final Long ID = 1L;
     private static final String NAME = "name";
+    private static final String VENDOR_URL_1 = "/api/v1/vendors/1";
     private VendorService vendorService;
 
     @Mock
@@ -62,5 +64,21 @@ public class VendorServiceImplTest {
 
         //then
         assertEquals(NAME, vendorDto.getName());
+    }
+
+    @Test
+    public void createNewVendorTest() throws Exception {
+        //given
+        VendorDto vendorDto = new VendorDto(NAME);
+        Vendor savedVendor = new Vendor(ID, vendorDto.getName());
+
+        when(vendorRepository.save(any(Vendor.class))).thenReturn(savedVendor);
+
+        //when
+        VendorDto savedDto = vendorService.createNewVendor(vendorDto);
+
+        //then
+        assertEquals(vendorDto.getName(), savedDto.getName());
+        assertEquals(VENDOR_URL_1, savedDto.getVendorUrl());
     }
 }
