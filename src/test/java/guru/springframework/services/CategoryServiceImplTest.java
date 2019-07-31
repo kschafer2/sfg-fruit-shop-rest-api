@@ -20,7 +20,8 @@ public class CategoryServiceImplTest {
 
     private static final Long ID = 1L;
     private static final String NAME = "name";
-    private CategoryService categoryService;
+
+    CategoryService categoryService;
 
     @Mock
     CategoryRepository categoryRepository;

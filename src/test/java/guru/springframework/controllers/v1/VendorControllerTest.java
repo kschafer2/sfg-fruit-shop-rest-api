@@ -40,10 +40,10 @@ public class VendorControllerTest {
     private static final String VENDORS_JSON = "$.vendors";
 
     @MockBean
-    private VendorService vendorService;
+    VendorService vendorService;
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

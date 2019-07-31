@@ -43,7 +43,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
     @InjectMocks
     CustomerController customerController;
 
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Before
     public void setUp() throws Exception {

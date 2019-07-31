@@ -27,7 +27,7 @@ public class VendorServiceImplTest {
     private static final Long ID = 1L;
     private static final String NAME = "name";
     private static final String VENDOR_URL_1 = "/api/v1/vendors/1";
-    private VendorService vendorService;
+    VendorService vendorService;
 
     @Mock
     VendorRepository vendorRepository;

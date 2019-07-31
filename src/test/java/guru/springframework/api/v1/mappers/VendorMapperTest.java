@@ -11,7 +11,7 @@ public class VendorMapperTest {
     private static final Long ID = 1L;
     private static final String NAME = "name";
     private static final String VENDOR_BASE_URL = "/api/v1/vendors/";
-    private VendorMapper vendorMapper = new VendorMapper();
+    VendorMapper vendorMapper = new VendorMapper();
 
     @Test
     public void toDtoTest() throws Exception {

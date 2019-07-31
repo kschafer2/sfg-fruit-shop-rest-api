@@ -24,7 +24,7 @@ public class CustomerServiceImplTest {
     private static final String FIRST = "first";
     private static final String LAST = "last";
     private static final String CUSTOMER_URL_1 = "/api/v1/customers/1";
-    private CustomerService customerService;
+    CustomerService customerService;
 
     @Mock
     CustomerRepository customerRepository;

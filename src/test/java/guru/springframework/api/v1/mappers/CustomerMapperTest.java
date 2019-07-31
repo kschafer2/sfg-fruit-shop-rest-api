@@ -12,7 +12,7 @@ public class CustomerMapperTest {
     private static final String FIRST = "first";
     private static final String LAST = "last";
     private static final String CUSTOMER_BASE_URL = "/api/v1/customers/";
-    private CustomerMapper customerMapper = new CustomerMapper();
+    CustomerMapper customerMapper = new CustomerMapper();
 
     @Test
     public void toDtoTest() throws Exception {
