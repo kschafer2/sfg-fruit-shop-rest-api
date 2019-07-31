@@ -3,6 +3,7 @@ package guru.springframework.services;
 import guru.springframework.api.v1.mappers.VendorMapper;
 import guru.springframework.api.v1.model.VendorDto;
 import guru.springframework.domain.Vendor;
+import guru.springframework.exceptions.ResourceNotFoundException;
 import guru.springframework.repositories.VendorRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,8 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
 
 public class VendorServiceImplTest {
@@ -66,6 +72,18 @@ public class VendorServiceImplTest {
         assertEquals(NAME, vendorDto.getName());
     }
 
+    @Test(expected = ResourceNotFoundException.class)
+    public void getVendorByIdNotFound() throws Exception {
+        //given
+        given(vendorRepository.findById(anyLong())).willReturn(Optional.empty());
+
+        //when
+        vendorService.getVendorById(ID);
+
+        //then
+        then(vendorRepository).should(times(1)).findById(anyLong());
+    }
+
     @Test
     public void createNewVendorTest() throws Exception {
         //given
@@ -97,5 +115,24 @@ public class VendorServiceImplTest {
         //then
         assertEquals(vendorDto.getName(), savedDto.getName());
         assertEquals(VENDOR_URL_1, savedDto.getVendorUrl());
+    }
+
+    @Test
+    public void patchVendorTest() throws Exception {
+        //given
+        VendorDto vendorDto = new VendorDto(NAME);
+        Vendor vendor = new Vendor(ID, NAME);
+
+        given(vendorRepository.findById(anyLong())).willReturn(Optional.of(vendor));
+        given(vendorRepository.save(any(Vendor.class))).willReturn(vendor);
+
+        //when
+        VendorDto savedDto = vendorService.patchVendor(ID, vendorDto);
+
+        //then
+        //'should' defaults to times = 1
+        then(vendorRepository).should().save(any(Vendor.class));
+        then(vendorRepository).should().findById(anyLong());
+        assertThat(savedDto.getVendorUrl(), containsString("1"));
     }
 }

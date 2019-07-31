@@ -29,15 +29,15 @@ public class CustomerServiceImplIT {
     private static final String UPDATED_NAME = "UpdatedName";
 
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    VendorRepository vendorRepository;
+    private VendorRepository vendorRepository;
 
-    CustomerService customerService;
+    private CustomerService customerService;
 
     @Before
     public void setUp() throws Exception {

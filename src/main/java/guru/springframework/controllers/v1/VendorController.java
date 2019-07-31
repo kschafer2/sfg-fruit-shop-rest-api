@@ -50,4 +50,13 @@ public class VendorController {
 
         return vendorService.overwriteVendor(id, vendorDto);
     }
+
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public VendorDto patchVendor(@PathVariable Long id,
+                                 @RequestBody VendorDto vendorDto) {
+        log.info("Patching Vendor: " + id);
+
+        return vendorService.patchVendor(id, vendorDto);
+    }
 }

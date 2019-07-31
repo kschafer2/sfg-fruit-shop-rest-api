@@ -20,6 +20,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -108,5 +109,19 @@ public class VendorControllerTest {
                 .andExpect(jsonPath(NAME_JSON, equalTo(NAME)))
                 .andExpect(jsonPath(VENDOR_URL_JSON, equalTo(VENDOR_URL_1)));
 
+    }
+
+    @Test
+    public void patchVendorTest() throws Exception {
+        VendorDto vendorDto = new VendorDto(NAME, VENDOR_URL_1);
+
+        given(vendorService.patchVendor(anyLong(), any(VendorDto.class)))
+                .willReturn(vendorDto);
+
+        mockMvc.perform(patch(VENDOR_URL_1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(vendorDto)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(NAME_JSON, equalTo(vendorDto.getName())));
     }
 }
