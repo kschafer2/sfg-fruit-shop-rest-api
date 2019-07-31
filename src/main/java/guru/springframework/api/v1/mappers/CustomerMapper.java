@@ -5,7 +5,7 @@ import guru.springframework.domain.Customer;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomerMapper implements Mapper<Customer, CustomerDto> {
+public class CustomerMapper extends UrlToIdMapper<Customer, CustomerDto> {
 
     @Override
     public CustomerDto toDto(Customer customer) {
@@ -31,13 +31,5 @@ public class CustomerMapper implements Mapper<Customer, CustomerDto> {
                 customerDto.getFirstName(),
                 customerDto.getLastName()
         );
-    }
-
-    private Long getIdFromUrl(String customerUrl) {
-        if(customerUrl == null) {
-            return null;
-        }
-
-        return Long.valueOf(String.valueOf(customerUrl.charAt(customerUrl.length()-1)));
     }
 }
