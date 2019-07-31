@@ -68,6 +68,11 @@ public class CustomerServiceImpl implements CustomerService {
         //todo implement better exception handling
     }
 
+    @Override
+    public void deleteCustomerById(Long id) {
+        customerRepository.deleteById(id);
+    }
+
     private CustomerDto saveAndReturnDto(Customer customer) {
         return customerMapper.toDto(customerRepository.save(customer));
     }

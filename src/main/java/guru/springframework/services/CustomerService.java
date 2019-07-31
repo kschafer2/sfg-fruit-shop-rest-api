@@ -15,4 +15,6 @@ public interface CustomerService {
     CustomerDto overwriteCustomer(Long id, CustomerDto customerDto);
 
     CustomerDto patchCustomer(Long id, CustomerDto customerDto);
+
+    void deleteCustomerById(Long id);
 }

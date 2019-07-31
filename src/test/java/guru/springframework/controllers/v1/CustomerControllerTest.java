@@ -18,6 +18,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -136,5 +137,14 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
                 .andExpect(jsonPath(FIRST_JSON, equalTo(FIRST)))
                 .andExpect(jsonPath(LAST_JSON, equalTo(LAST)))
                 .andExpect(jsonPath(CUSTOMER_URL_JSON, equalTo(CUSTOMER_URL_1)));
+    }
+
+    @Test
+    public void deleteCustomer() throws Exception {
+        mockMvc.perform(delete(CUSTOMER_URL_1)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(customerService).deleteCustomerById(anyLong());
     }
 }
