@@ -3,10 +3,13 @@ package guru.springframework.controllers.v1;
 import guru.springframework.api.v1.model.VendorDto;
 import guru.springframework.api.v1.model.VendorListDto;
 import guru.springframework.services.VendorService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+@Api(description = "This is the Vendor API")
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/vendors")
@@ -18,6 +21,7 @@ public class VendorController {
         this.vendorService = vendorService;
     }
 
+    @ApiOperation(value = "View a list of all vendors")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public VendorListDto getAllVendors() {
@@ -26,6 +30,7 @@ public class VendorController {
         return new VendorListDto(vendorService.getAllVendors());
     }
 
+    @ApiOperation(value = "View a specific vendor")
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public VendorDto getVendorById(@PathVariable Long id) {
@@ -34,6 +39,7 @@ public class VendorController {
         return vendorService.getVendorById(id);
     }
 
+    @ApiOperation(value = "Create a new vendor")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public VendorDto createNewVendor(@RequestBody VendorDto vendorDto) {
@@ -42,6 +48,7 @@ public class VendorController {
         return vendorService.createNewVendor(vendorDto);
     }
 
+    @ApiOperation(value = "Overwrite an existing vendor")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public VendorDto overwriteVendor(@PathVariable Long id,
@@ -51,6 +58,7 @@ public class VendorController {
         return vendorService.overwriteVendor(id, vendorDto);
     }
 
+    @ApiOperation(value = "Update an existing vendor's properties")
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public VendorDto patchVendor(@PathVariable Long id,
@@ -60,6 +68,7 @@ public class VendorController {
         return vendorService.patchVendor(id, vendorDto);
     }
 
+    @ApiOperation(value = "Delete a vendor")
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteVendorById(@PathVariable Long id) {

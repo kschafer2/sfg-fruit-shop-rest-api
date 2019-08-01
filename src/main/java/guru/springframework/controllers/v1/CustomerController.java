@@ -3,12 +3,15 @@ package guru.springframework.controllers.v1;
 import guru.springframework.api.v1.model.CustomerDto;
 import guru.springframework.api.v1.model.CustomerListDto;
 import guru.springframework.services.CustomerService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@Api(description = "This is the Customer API")
 @Slf4j
 @Controller
 @RequestMapping("/api/v1/customers")
@@ -20,6 +23,7 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+    @ApiOperation(value = "View a list of all customers")
     @GetMapping
     public ResponseEntity<CustomerListDto> getAllCustomers() {
         log.info("Getting All Customers...");
@@ -30,6 +34,7 @@ public class CustomerController {
         );
     }
 
+    @ApiOperation(value = "View a specific customer")
     @GetMapping("/{id}")
     public ResponseEntity<CustomerDto> getCustomerById(@PathVariable Long id) {
         log.info("Getting Customer: " + id);
@@ -40,6 +45,7 @@ public class CustomerController {
         );
     }
 
+    @ApiOperation(value = "Create a new customer")
     @PostMapping
     public ResponseEntity<CustomerDto> createNewCustomer(@RequestBody CustomerDto customerDto) {
         log.info("Creating Customer: " + customerDto.getFirstName() + " " + customerDto.getLastName());
@@ -50,6 +56,7 @@ public class CustomerController {
         );
     }
 
+    @ApiOperation(value = "Overwrite an existing customer")
     @PutMapping("/{id}")
     public ResponseEntity<CustomerDto> overwriteCustomer(@PathVariable Long id,
                                                          @RequestBody CustomerDto customerDto) {
@@ -61,6 +68,7 @@ public class CustomerController {
         );
     }
 
+    @ApiOperation(value = "Update an existing customer's properties")
     @PatchMapping("/{id}")
     public ResponseEntity<CustomerDto> patchCustomer(@PathVariable Long id,
                                                       @RequestBody CustomerDto customerDto) {
@@ -72,6 +80,7 @@ public class CustomerController {
         );
     }
 
+    @ApiOperation(value = "Delete a customer")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {
         log.info("Deleting Customer: " + id);
