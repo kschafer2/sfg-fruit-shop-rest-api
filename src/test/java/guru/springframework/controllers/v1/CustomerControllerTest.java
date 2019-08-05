@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -22,6 +21,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -64,7 +64,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
         when(customerService.getAllCustomers()).thenReturn(customers);
 
         mockMvc.perform(get(CUSTOMER_BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON))
+                .accept(APPLICATION_JSON)
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(CUSTOMERS_JSON, hasSize(2)));
     }
@@ -76,7 +77,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
         when(customerService.getCustomerById(anyLong())).thenReturn(customer1);
 
         mockMvc.perform(get(CUSTOMER_URL_1)
-                .contentType(MediaType.APPLICATION_JSON))
+                .accept(APPLICATION_JSON)
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(FIRST_JSON, equalTo(FIRST)));
     }
@@ -92,7 +94,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
         when(customerService.createNewCustomer(customer)).thenReturn(returnDto);
 
         mockMvc.perform(post(CUSTOMER_BASE_URL)
-                .contentType(MediaType.APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .contentType(APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath(FIRST_JSON, equalTo(FIRST)))
@@ -113,7 +116,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
                 .thenReturn(returnDto);
 
         mockMvc.perform(put(CUSTOMER_URL_1)
-                .contentType(MediaType.APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .contentType(APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(FIRST_JSON, equalTo(FIRST)))
@@ -137,7 +141,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
                 .thenReturn(returnDto);
 
         mockMvc.perform(patch(CUSTOMER_URL_1)
-                .contentType(MediaType.APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
+                .contentType(APPLICATION_JSON)
                 .content(asJsonString(customer)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(FIRST_JSON, equalTo(FIRST)))
@@ -148,7 +153,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
     @Test
     public void deleteCustomer() throws Exception {
         mockMvc.perform(delete(CUSTOMER_URL_1)
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
 
         verify(customerService).deleteCustomerById(anyLong());
@@ -159,7 +164,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
         when(customerService.getCustomerById(anyLong())).thenThrow(ResourceNotFoundException.class);
 
         mockMvc.perform(get(CUSTOMER_BASE_URL + "123")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 }
