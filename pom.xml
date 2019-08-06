@@ -3,16 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
+
     <modules>
         <module>sfg-fruit-shop-rest-api-app</module>
         <module>sfg-fruit-shop-rest-api-model</module>
+        <module>newmod</module>
     </modules>
+
     <parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.1.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>guru.springframework</groupId>
 	<artifactId>sfg-fruit-shop-rest-api-parent</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -24,6 +28,9 @@
         <springfox-swagger.version>2.9.2</springfox-swagger.version>
     </properties>
 
+    <dependencies>
+
+    </dependencies>
 
 
 </project>
