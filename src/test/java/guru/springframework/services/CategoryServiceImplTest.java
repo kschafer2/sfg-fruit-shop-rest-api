@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -54,7 +55,7 @@ public class CategoryServiceImplTest {
         //given
         Category category = new Category(ID, NAME);
 
-        when(categoryRepository.findByName(anyString())).thenReturn(category);
+        when(categoryRepository.findByName(anyString())).thenReturn(Optional.of(category));
 
         //when
         CategoryDto categoryDTO = categoryService.getCategoryByName(NAME);

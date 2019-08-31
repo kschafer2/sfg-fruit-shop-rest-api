@@ -44,9 +44,7 @@ public class Bootstrap implements CommandLineRunner {
                 new Category("Nuts")
         );
 
-        for(Category category : categories) {
-            categoryRepository.save(category);
-        }
+        categories.forEach(categoryRepository::save);
 
         System.out.println("Loaded Category Count: " + categoryRepository.count());
     }
@@ -60,9 +58,7 @@ public class Bootstrap implements CommandLineRunner {
                 new Customer("Mickey", "Mouse")
         );
 
-        for(Customer customer : customers) {
-            customerRepository.save(customer);
-        }
+        customers.forEach(customerRepository::save);
 
         System.out.println("Loaded Customer Count: " + customerRepository.count());
     }
