@@ -1,16 +1,15 @@
 package guru.springframework.controllers.v1;
 
 import guru.springframework.api.v1.model.CustomerDto;
-import guru.springframework.controllers.RestResponseEntityExceptionHandler;
 import guru.springframework.exceptions.ResourceNotFoundException;
 import guru.springframework.services.CustomerService;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +25,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringRunner.class)
+@WebMvcTest(controllers = {CustomerController.class})
 public class CustomerControllerTest extends AbstractRestControllerTest{
 
     private static final String FIRST = "first";
@@ -37,23 +38,11 @@ public class CustomerControllerTest extends AbstractRestControllerTest{
     private static final String CUSTOMERS_JSON = "$.customers";
     private static final String CUSTOMER_BASE_URL = "/api/v1/customers/";
 
-    @Mock
+    @MockBean
     CustomerService customerService;
 
-    @InjectMocks
-    CustomerController customerController;
-
+    @Autowired
     MockMvc mockMvc;
-
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(customerController)
-                .setControllerAdvice(new RestResponseEntityExceptionHandler())
-                .build();
-    }
 
     @Test
     public void getAllCustomersTest() throws Exception {

@@ -2,7 +2,6 @@ package guru.springframework.controllers.v1;
 
 import guru.springframework.api.v1.model.VendorDto;
 import guru.springframework.services.VendorService;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +43,6 @@ public class VendorControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
-    @Before
-    public void setUp() throws Exception {
-    }
 
     @Test
     public void getAllVendorsTest() throws Exception {

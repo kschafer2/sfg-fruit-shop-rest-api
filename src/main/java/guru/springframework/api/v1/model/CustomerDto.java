@@ -12,9 +12,11 @@ import lombok.NoArgsConstructor;
 public class CustomerDto {
 
     @JsonProperty("firstname")
+    @ApiModelProperty(required = true)
     private String firstName;
 
     @JsonProperty("lastname")
+    @ApiModelProperty(required = true)
     private String lastName;
 
     @ApiModelProperty(hidden = true)

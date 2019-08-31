@@ -1,16 +1,15 @@
 package guru.springframework.controllers.v1;
 
 import guru.springframework.api.v1.model.CategoryDto;
-import guru.springframework.controllers.RestResponseEntityExceptionHandler;
 import guru.springframework.exceptions.ResourceNotFoundException;
 import guru.springframework.services.CategoryService;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,28 +23,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringRunner.class)
+@WebMvcTest(controllers= {CategoryController.class})
 public class CategoryControllerTest {
 
     private static final String CATEGORY_BASE_URL = "/api/v1/categories/";
     private static final String NAME = "name";
 
-    @Mock
+    @MockBean
     CategoryService categoryService;
 
-    @InjectMocks
-    CategoryController categoryController;
-
+    @Autowired
     MockMvc mockMvc;
-
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
-
-        mockMvc = MockMvcBuilders
-                .standaloneSetup(categoryController)
-                .setControllerAdvice(new RestResponseEntityExceptionHandler())
-                .build();
-    }
 
     @Test
     public void getAllCategoriesTest() throws Exception {
